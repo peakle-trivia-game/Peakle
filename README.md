@@ -37,6 +37,7 @@ Peakle is a fun browser-based trivia game that combines general knowledge, numbe
 Ready to test your knowledge?
 
 👉 https://peakle.app/
+
 https://peakle-trivia-game.github.io/Peakle/
 
 ## 💬 Share Your Experience
