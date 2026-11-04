@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+
+    <title>Peakle - Free Daily Trivia Game | Test Your Knowledge</title>
+
+    <meta name="description" content="Play Peakle, a free daily trivia game that challenges your knowledge of geography, countries, population and more. Climb higher with every correct answer and challenge your friends!">
+
+    <meta name="keywords" content="Peakle, daily trivia game, free trivia game, geography quiz, online quiz game, knowledge game, brain games, puzzle games, country quiz">
+
+    <meta name="author" content="Peakle">
+
+    <link rel="canonical" href="https://peakle-trivia-game.github.io/Peakle/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Peakle - Test Your Knowledge. Climb Higher.">
+    <meta property="og:description" content="A fun and addictive daily trivia game. Challenge your knowledge, climb higher and see how far you can go!">
+    <meta property="og:image" content="https://peakle-trivia-game.github.io/Peakle/s.png">
+    <meta property="og:url" content="https://peakle-trivia-game.github.io/Peakle/">
+    <meta property="og:site_name" content="Peakle">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Peakle - Daily Trivia Challenge">
+    <meta name="twitter:description" content="Test your knowledge. Climb higher. Challenge yourself with Peakle!">
+    <meta name="twitter:image" content="https://peakle-trivia-game.github.io/Peakle/s.png">
+
+    <link rel="icon" href="./s.png" type="image/png">
+
+    <style>
+        :root {
+            --bg: #0b1220;
+            --bg-secondary: #111c2d;
+            --card: #162338;
+            --green: #86e5a5;
+            --green-dark: #5cc985;
+            --text: #f5f8fc;
+            --muted: #9eacbf;
+            --border: rgba(255,255,255,.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: 0 auto;
+        }
+
+        .navbar {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: #102018 !important;
+            padding: 10px 19px;
+            border-radius: 9px;
+            font-weight: 800;
+        }
+
+        .hero {
+            position: relative;
+            padding: 105px 0 90px;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(79,190,125,.16), transparent 55%),
+                var(--bg);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            background: rgba(90,210,140,.07);
+            filter: blur(100px);
+            border-radius: 50%;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(134,229,165,.25);
+            background: rgba(134,229,165,.09);
+            color: var(--green);
+            padding: 7px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 27px;
+        }
+
+        h1 {
+            font-size: clamp(44px, 7vw, 76px);
+            line-height: 1.08;
+            letter-spacing: -3.5px;
+            font-weight: 900;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: var(--green);
+        }
+
+        .hero-description {
+            max-width: 680px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 11px;
+            padding: 16px 29px;
+            font-weight: 800;
+            font-size: 16px;
+            transition: all .2s ease;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #102018;
+            box-shadow: 0 8px 30px rgba(134,229,165,.18);
+        }
+
+        .btn-primary:hover {
+            background: #a0f0b8;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(134,229,165,.25);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: rgba(255,255,255,.035);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,.09);
+        }
+
+        .hero-note {
+            color: #8493a8;
+            font-size: 13px;
+            margin-top: 17px;
+        }
+
+        .preview {
+            max-width: 950px;
+            margin: 65px auto 0;
+            position: relative;
+        }
+
+        .preview-frame {
+            padding: 10px;
+            border-radius: 19px;
+            background: linear-gradient(135deg, #293b4e, #152238);
+            border: 1px solid rgba(255,255,255,.13);
+            box-shadow: 0 35px 90px rgba(0,0,0,.45);
+        }
+
+        .preview img {
+            width: 100%;
+            display: block;
+            border-radius: 11px;
+            height: auto;
+        }
+
+        .section {
+            padding: 95px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+
+        .eyebrow {
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 4vw, 43px);
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: linear-gradient(145deg, #19283d, #111c2d);
+            transition: transform .2s, border-color .2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(134,229,165,.4);
+        }
+
+        .feature-icon {
+            font-size: 31px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .how-section {
+            background: var(--bg-secondary);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .step-number {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: var(--green);
+            color: #102018;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            font-size: 19px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .modes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .mode-card {
+            padding: 32px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .mode-card .mode-icon {
+            font-size: 32px;
+            margin-bottom: 14px;
+        }
+
+        .mode-card h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .mode-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .faq-section {
+            background: var(--bg-secondary);
+        }
+
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item h3 {
+            font-size: 17px;
+            margin-bottom: 9px;
+        }
+
+        .faq-item p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .final-cta {
+            text-align: center;
+            padding: 105px 20px;
+            background:
+                radial-gradient(ellipse at center, rgba(90,210,140,.13), transparent 65%);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+            margin-bottom: 17px;
+        }
+
+        .final-cta p {
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            color: #8493a8;
+            font-size: 13px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 22px;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+        }
+
+        @media(max-width: 760px) {
+            .nav-links a:not(.nav-cta) {
+                display: none;
+            }
+
+            .hero {
+                padding: 75px 0 60px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .features,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .modes {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .preview {
+                margin-top: 45px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .footer-inner {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Peakle",
+      "url": "https://peakle.app/",
+      "description": "A daily trivia game that challenges players with geography, numbers and general knowledge.",
+      "genre": ["Trivia", "Puzzle", "Educational"],
+      "gamePlatform": "Web Browser",
+      "applicationCategory": "Game"
+    }
+    </script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="container nav-inner">
+        <a href="#" class="logo">Peak<span>le</span></a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="#features">Features</a>
+            <a href="#how-to-play">How to Play</a>
+            <a href="#game-modes">Game Modes</a>
+            <a href="https://peakle.app/" target="_blank"
+               rel="noopener noreferrer" class="nav-cta">
+                Play Now ↗
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container hero-content">
+
+            <div class="badge">
+                🌍 THE DAILY TRIVIA CHALLENGE
+            </div>
+
+            <h1>
+                Test Your Knowledge.<br>
+                <span>Climb Higher.</span>
+            </h1>
+
+            <p class="hero-description">
+                How far can your knowledge take you?
+                Challenge yourself with geography, countries, population
+                and more. Make smart choices, keep climbing and see
+                if you can reach the top!
+            </p>
+
+            <div class="hero-buttons">
+                <a href="https://peakle.app/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-primary">
+                    Play Peakle for Free <span>→</span>
+                </a>
+
+                <a href="#how-to-play" class="btn btn-secondary">
+                    Discover How It Works
+                </a>
+            </div>
+
+            <p class="hero-note">
+                No download required · Play directly in your browser
+            </p>
+
+            <div class="preview">
+                <div class="preview-frame">
+                    <img
+                        src="./s.png"
+                        alt="Peakle daily trivia game screenshot showing the gameplay interface"
+                        width="1200"
+                        height="750"
+                        fetchpriority="high"
+                    >
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <div class="container">
+
+            <div class="section-header">
+                <div class="eyebrow">WHY PEAKLE</div>
+                <h2 class="section-title">
+                    More Than Just a Trivia Game
+                </h2>
+                <p class="section-description">
+                    Combine knowledge, strategy and quick thinking
+                    in a simple but addictive challenge.
+                </p>
+            </div>
+
+            <div class="features">
+
+                <article class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Challenge Your Knowledge</h3>
+                    <p>
+                        Explore geography, countries, population
+                        and other interesting topics while testing
+                        what you really know.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🏔️</div>
+                    <h3>Keep Climbing Higher</h3>
+                    <p>
+                        Every correct answer brings you closer
+                        to the summit. Think carefully before
+                        making your next move.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Beat Your Best Record</h3>
+                    <p>
+                        Every round is a new opportunity.
+                        Improve your performance and see
+                        how far you can go.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section class="section how-section" id="how-to-play">
+        <div class="container">
+
+            <div class="section-header">
+                <div class="eyebrow">HOW TO PLAY</div>
+                <h2 class="section-title">Easy to Learn. Hard to Master.</h2>
+                <p class="section-description">
+                    Start playing in seconds. Your next challenge
+                    is just one click away.
+                </p>
+            </div>
+
+            <div class="steps">
+
+                <article class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose a Challenge</h3>
+                    <p>
+                        Start with a daily trivia challenge
+                        or explore unlimited gameplay.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <div class="step-number">2</div>
+                    <h3>Make Your Move</h3>
+                    <p>
+                        Answer based on the topic and follow
+                        the rules of the challenge.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <div class="step-number">3</div>
+                    <h3>Climb to the Top</h3>
+                    <p>
+                        Keep answering correctly, beat your
+                        record and reach new heights.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GAME MODES -->
+    <section class="section" id="game-modes">
+        <div class="container">
+
+            <div class="section-header">
+                <div class="eyebrow">GAME MODES</div>
+                <h2 class="section-title">Play Your Way</h2>
+                <p class="section-description">
+                    Whether you enjoy daily competition or
+                    endless practice, there's a challenge for you.
+                </p>
+            </div>
+
+            <div class="modes">
+
+                <article class="mode-card">
+                    <div class="mode-icon">📅</div>
+                    <h3>Daily Challenge</h3>
+                    <p>
+                        Take on a fresh daily trivia challenge.
+                        Test your knowledge and aim for your
+                        best performance.
+                    </p>
+                </article>
+
+                <article class="mode-card">
+                    <div class="mode-icon">♾️</div>
+                    <h3>Unlimited Mode</h3>
+                    <p>
+                        Want more? Keep playing and explore
+                        different topics whenever you like.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq-section">
+        <div class="container">
+
+            <div class="section-header">
+                <div class="eyebrow">FAQ</div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-list">
+
+                <article class="faq-item">
+                    <h3>What is Peakle?</h3>
+                    <p>
+                        Peakle is an online trivia game where
+                        players test their knowledge through
+                        fun topic-based challenges.
+                    </p>
+                </article>
+
+                <article class="faq-item">
+                    <h3>Is Peakle free to play?</h3>
+                    <p>
+                        You can visit Peakle directly in your
+                        browser and start playing without
+                        downloading an app.
+                    </p>
+                </article>
+
+                <article class="faq-item">
+                    <h3>Do I need to download anything?</h3>
+                    <p>
+                        No. Peakle is browser-based and can
+                        be played on supported desktop and
+                        mobile browsers.
+                    </p>
+                </article>
+
+                <article class="faq-item">
+                    <h3>What topics can I play?</h3>
+                    <p>
+                        Peakle features trivia challenges
+                        across topics such as geography,
+                        countries, population and more.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <div class="container">
+
+            <div class="badge">🏔️ YOUR NEXT CHALLENGE AWAITS</div>
+
+            <h2>
+                Ready to Reach<br>
+                <span style="color:var(--green)">The Summit?</span>
+            </h2>
+
+            <p>
+                Put your knowledge to the test.
+                Start climbing and discover how far you can go.
+            </p>
+
+            <a href="https://peakle.app/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-primary">
+                Start Playing Peakle →
+            </a>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container footer-inner">
+
+        <div>
+            © 2026 Peakle. All rights reserved.
+        </div>
+
+        <div class="footer-links">
+            <a href="https://peakle.app/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Play Game
+            </a>
+
+            <a href="https://github.com/peakle-trivia-game/Peakle"
+               target="_blank"
+               rel="noopener noreferrer">
+                GitHub
+            </a>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
